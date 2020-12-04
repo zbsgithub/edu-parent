@@ -1,0 +1,6 @@
+#add ignore commit file
+.idea/
+*.iml
+*/target/*
+*/log/*
+*.classes
