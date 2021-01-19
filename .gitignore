@@ -5,3 +5,9 @@
 log/*
 *.classes
 *.log
+*/.gitignore
+*.rar
+*/.project
+*/.settings/*
+*/bin/*
+.project
