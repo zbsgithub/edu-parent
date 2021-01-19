@@ -1,13 +1,14 @@
 package com.gzdata.core.controller.online;
 
-import com.gzdata.common.db.mybatis.result.Result;
-import com.gzdata.common.util.RandomUtil;
-import com.gzdata.core.service.SysUsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.gzdata.common.db.mybatis.result.Result;
+import com.gzdata.common.util.RandomUtil;
+import com.gzdata.core.service.SysUserService;
 
 @RestController
 public class TestController {
@@ -15,7 +16,7 @@ public class TestController {
     private static final Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @Autowired
-    private SysUsersService sysUsersService;
+    private SysUserService sysUsersService;
 
     /**
      * @description 描述

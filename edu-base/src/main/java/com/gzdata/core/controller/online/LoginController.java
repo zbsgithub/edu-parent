@@ -1,11 +1,9 @@
-package com.gzdata.core.controller.online;
+/*package com.gzdata.core.controller.online;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -30,13 +28,8 @@ import com.gzdata.common.compoent.SystemUtil;
 import com.gzdata.common.db.mybatis.result.Result;
 import com.gzdata.common.util.AESUtil;
 import com.gzdata.common.util.DateUtil;
-import com.gzdata.core.model.SysRoles;
 import com.gzdata.core.model.SysUsers;
-import com.gzdata.core.model.SysUsersRoles;
-import com.gzdata.core.qo.SysUsersRolesQo;
 import com.gzdata.core.service.SysPermissionsService;
-import com.gzdata.core.service.SysRolesService;
-import com.gzdata.core.service.SysUsersRolesService;
 import com.gzdata.core.service.SysUsersService;
 
 @RestController
@@ -52,17 +45,13 @@ public class LoginController {
 	@Autowired
 	private SysUsersService userService;
 	@Autowired
-	private SysRolesService rolesService;
-	@Autowired
-	private SysUsersRolesService sysUsersRolesService;
-	@Autowired
 	private SysPermissionsService permissionsService;
 	
 	@Autowired
     private Environment env;
 	
 
-	/**
+	*//**
 	 *
 	 * 功能描述：默认登录
 	 *
@@ -75,7 +64,7 @@ public class LoginController {
 	 * @since 2020年5月11日
 	 *
 	 * @update:[变更日期YYYY-MM-DD][更改人姓名][变更描述]
-	 */
+	 *//*
 	@ApiOperation("账号密码登录")
 	@PostMapping(value = "/login")
 	@ResponseBody
@@ -116,9 +105,6 @@ public class LoginController {
 			resultMap.put("x-auth-token", subject.getSession().getId());
 			resultMap.put("userName", users.getUsername());//姓名
 			
-			resultMap.put("role",getCurrentRoles(users.getId()));
-        	resultMap.put("permissions",getCurrentPermission(users.getId()));
-
 			resultMap.put("bingState", users.getBingState());
 			//判断是否是首次登录
 			if(users.getLastLoginTime()!=null){
@@ -137,56 +123,6 @@ public class LoginController {
 			return Result.valueOf(Result.ERROR,"登录失败");
 		}
 	}
-
 	
-
-
-	private List<String> getCurrentRoles(int userId){
-		List<String> roleList = new ArrayList<String>();
-		
-		SysUsersRolesQo qo =new SysUsersRolesQo();
-		qo.setUserId(userId);
-		List<SysUsersRoles> userRoleList = sysUsersRolesService.findList(qo);
-		
-		//角色权限列表
-        if(userRoleList!=null && !userRoleList.isEmpty()){
-        	
-        	for (SysUsersRoles sysUsersRoles : userRoleList) {
-				
-        		SysRoles roles = rolesService.findById(sysUsersRoles.getRoleId());
-        		roleList.add(roles.getRole());
-        		
-			}
-        }
-			
-		return roleList;	
-	}
-
-	
-	private List<String> getCurrentPermission(int userId){
-		
-		List<String> permissionList = new ArrayList<String>();
-		
-		SysUsersRolesQo qo =new SysUsersRolesQo();
-		qo.setUserId(userId);
-		List<SysUsersRoles> userRoleList = sysUsersRolesService.findList(qo);
-		
-		//角色权限列表
-        if(userRoleList!=null && !userRoleList.isEmpty()){
-        	
-        	for (SysUsersRoles sysUsersRoles : userRoleList) {
-				
-        		SysRoles roles = rolesService.findById(sysUsersRoles.getRoleId());
-        		
-        		List<Integer> permissionIds = permissionsService.getCurrentUserPermiId(roles.getRole());
-        		if(permissionIds!=null && !permissionIds.isEmpty()){//存在权限列表数据
-        			for (Integer id : permissionIds) {
-        				permissionList.add(permissionsService.findById(id).getPermission());
-        			}
-        		}
-        		
-			}
-        }
-        return permissionList;
-	}
 }
+*/

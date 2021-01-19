@@ -1,9 +1,9 @@
 package com.gzdata.common.compoent;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
@@ -16,14 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.gzdata.core.model.SysRoles;
-import com.gzdata.core.model.SysUsers;
-import com.gzdata.core.qo.SysUsersQo;
-import com.gzdata.core.qo.SysUsersRolesQo;
-import com.gzdata.core.service.SysPermissionsService;
-import com.gzdata.core.service.SysRolesService;
-import com.gzdata.core.service.SysUsersRolesService;
-import com.gzdata.core.service.SysUsersService;
+import com.gzdata.core.model.SysUser;
+import com.gzdata.core.qo.SysUserQo;
+import com.gzdata.core.service.SysPermissionService;
+import com.gzdata.core.service.SysUserService;
 
 
 /**
@@ -43,15 +39,10 @@ public class SystemUtil {
 
 	@Autowired
 	private HttpSession session;
+	@Resource
+	private SysUserService sysUserService;
 	@Autowired
-	private SysUsersService usersService;
-	@Autowired
-	private SysRolesService rolesService;
-	@Autowired
-	private SysUsersRolesService userRoleService;
-
-	@Autowired
-	private SysPermissionsService permissionsService;
+	private SysPermissionService permissionsService;
 
 	/**
 	 *
@@ -65,8 +56,8 @@ public class SystemUtil {
 	 *
 	 * @update:[变更日期YYYY-MM-DD][更改人姓名][变更描述]
 	 */
-	public SysUsers getCurrentUser(){
-		SysUsers entitySysUsers=null;
+	public SysUser getCurrentUser(){
+		SysUser entitySysUsers=null;
 		String sessionId=String.valueOf(session.getAttribute("token"));
 		Session session = getSessionById(sessionId);
 
@@ -74,14 +65,14 @@ public class SystemUtil {
         //org.apache.shiro.subject.SimplePrincipalCollection cannot be cast to com.hncxhd.bywl.entity.manual.UserInfo
         SimplePrincipalCollection coll = (SimplePrincipalCollection) obj;
 
-        SysUsersQo qo=new SysUsersQo();
+        SysUserQo qo=new SysUserQo();
         qo.setEmail((String)coll.getPrimaryPrincipal());
-        qo.setLocked(0);
-        List<SysUsers> userList = usersService.findList(qo);
+//        qo.setLocked(0);
+        List<SysUser> userList = sysUserService.findList(qo);
 
         if(userList!=null && !userList.isEmpty()){
         	entitySysUsers = userList.get(0);
-        	logger.info("user_name:"+entitySysUsers.getUsername());
+        	logger.info("user_name:"+entitySysUsers.getUserName());
         }
 
 		logger.info("----------------session 中对应的token ==> sessionId:"+sessionId);
@@ -123,26 +114,6 @@ public class SystemUtil {
 		return userId;
 	}
 
-	/**
-	 *
-	 * 功能描述：获取当前用户角色
-	 *
-	 * @return
-	 *
-	 * @author 张兵帅
-	 *
-	 * @since 2020年5月12日
-	 *
-	 * @update:[变更日期YYYY-MM-DD][更改人姓名][变更描述]
-	 */
-	public String getCurrentRole(){
-		SysUsersRolesQo qo=new SysUsersRolesQo();
-		qo.setUserId(getCurrentUserId());
-		int roleId = userRoleService.findList(qo).get(0).getRoleId();
-		SysRoles role=rolesService.findById(roleId);
-
-		return role.getRole();
-	}
 
 	/**
 	 *
@@ -156,7 +127,7 @@ public class SystemUtil {
 	 *
 	 * @update:[变更日期YYYY-MM-DD][更改人姓名][变更描述]
 	 */
-	public List<String> getCurrentPermission(){
+	/*public List<String> getCurrentPermission(){
 		List<String> permiList = new ArrayList<String>();
 		List<Integer> permissionIds = permissionsService.getCurrentUserPermiId(getCurrentRole());
 		if(permissionIds!=null && !permissionIds.isEmpty()){//存在权限列表数据
@@ -165,5 +136,5 @@ public class SystemUtil {
 			}
 		}
 		return permiList;
-	}
+	}*/
 }

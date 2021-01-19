@@ -37,7 +37,7 @@ public class SwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("勾正-ORS-API 操作文档")
+				.title("勾正-重庆工商大学-API-操作文档")
 				.description("更多Spring Boot相关文章请关注：http://blog.didispace.com/")
 				.termsOfServiceUrl("http://blog.didispace.com/")
 				.contact("zbs").version("1.0").build();

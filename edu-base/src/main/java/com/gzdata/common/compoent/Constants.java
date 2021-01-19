@@ -23,11 +23,11 @@ public class Constants {
 	 * linux下文件保存路径
 	 * /tmp/
 	 */	
-	public static final String fileUploadPath=File.separator+"tmp"+File.separator;//文件上传地址
+//	public static final String fileUploadPath=File.separator+"tmp"+File.separator;//文件上传地址
 	/**
 	 * window下保存路径
 	 */
-//	public static final String fileUploadPath="E:"+File.separator+"test_dirs"+File.separator;//文件上传地址
+	public static final String fileUploadPath="E:"+File.separator+"test_dirs"+File.separator;//文件上传地址
 	
 	/**
 	 * reqest openid url

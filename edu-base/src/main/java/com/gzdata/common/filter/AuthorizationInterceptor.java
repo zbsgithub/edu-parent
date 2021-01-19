@@ -35,12 +35,17 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         // 从请求头获取token
         String token = request.getHeader("x-auth-token");
-        if(request.getRequestURI().contains("/login") || request.getRequestURI().contains("/anon") || request.getRequestURI().contains("/swagger-ui.html") ||
-        		request.getRequestURI().contains("/webjars") || request.getRequestURI().contains("/v2") || request.getRequestURI().contains("/swagger-resources")
-        		|| request.getRequestURI().contains("/static") || request.getRequestURI().contains("/upload")){
+        String [] ignoreUrlArray=new String[]{"/login","/swagger-ui.html","/webjars","/v2",
+        		"/static","/upload","/swagger-resources","/index","/api/anon"};
+        
+        if(request.getRequestURI().indexOf("/api/anon")!=-1){
         	logger.info("------------直接跳过------------请求地址："+request.getRequestURI());
         	return true;
         }
+        /*if(Arrays.asList(ignoreUrlArray).contains(request.getRequestURI())){
+        	logger.info("------------直接跳过------------请求地址："+request.getRequestURI());
+        	return true;
+        }*/
 
         // 如果请求头没有token,则从请求参数中取
         if (StringUtils.isBlank(token)) {
@@ -49,6 +54,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         // 如果还是没有token,则抛异常
         if (StringUtils.isBlank(token)) {
         	logger.info(request.getRequestURI());
+        	logger.info(request.getRequestURL().toString());
 //           throw new RuntimeException("token不能为空，请确认token是否存在");
            throw new GenericException("token不能为空，请确认token是否存在");
 
@@ -70,4 +76,5 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
         return true;
     }
+    
 }

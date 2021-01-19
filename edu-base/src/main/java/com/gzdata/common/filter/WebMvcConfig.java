@@ -22,10 +22,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
      * 拦截器配置
      * @param registry
      */
-    @Override
+    /*@Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**");
-    }
+        registry.addInterceptor(authorizationInterceptor).addPathPatterns("/**").excludePathPatterns("/api/anon/**");
+    }*/
 
     /**
      * 跨域支持配置

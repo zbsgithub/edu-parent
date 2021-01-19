@@ -23,19 +23,11 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.gzdata.common.db.mybatis.result.Result;
 import com.gzdata.common.task.AsyncTask;
-import com.gzdata.core.dao.SysUsersDao;
-import com.gzdata.core.service.SysUsersService;
 
 @RestController
 @RequestMapping("/api/")
 public class ExportController {
 
-	@Autowired
-	private SysUsersDao sysUsersDao;
-	
-	@Autowired
-	private SysUsersService sysUsersService;
-	
 	@Autowired  
     private AsyncTask asyncTask; 
 	
